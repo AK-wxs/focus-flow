@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusFlow — Personal Energy & Productivity Lab</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- Subtle Ambient Glow Orbs -->
+  <div class="ambient-glow glow-top-left"></div>
+  <div class="ambient-glow glow-bottom-right"></div>
+
+  <!-- Mobile Top Navbar (Visible only on <lg screens) -->
+  <nav class="navbar navbar-dark d-lg-none mobile-nav sticky-top px-3">
+    <div class="d-flex align-items-center gap-2">
+      <div class="logo-icon-box">
+        <i class="bi bi-activity"></i>
+      </div>
+      <span class="logo-title">FocusFlow</span>
+    </div>
+    <button class="btn btn-outline-cyber btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
+      <i class="bi bi-list fs-5"></i>
+    </button>
+  </nav>
+
+  <!-- Offcanvas Mobile Sidebar -->
+  <div class="offcanvas offcanvas-start mobile-sidebar-drawer d-lg-none" tabindex="-1" id="mobileSidebar">
+    <div class="offcanvas-header border-bottom-subtle">
+      <div class="d-flex align-items-center gap-2">
+        <div class="logo-icon-box">
+          <i class="bi bi-activity"></i>
+        </div>
+        <span class="logo-title">FocusFlow</span>
+      </div>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+      <ul class="nav flex-column gap-2 sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#dashboard" data-bs-dismiss="offcanvas">
+            <i class="bi bi-grid-1x2-fill me-2"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#tasks-section" data-bs-dismiss="offcanvas">
+            <i class="bi bi-check2-square me-2"></i> My Tasks
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#timer-section" data-bs-dismiss="offcanvas">
+            <i class="bi bi-stopwatch me-2"></i> Focus Timer
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#activity-section" data-bs-dismiss="offcanvas">
+            <i class="bi bi-bar-chart-line me-2"></i> Activity
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer p-3 rounded-3 text-center">
+        <small class="text-muted-cyber d-block">FocusFlow v1.0</small>
+        <span class="badge badge-cyber-purple mt-1">Energy & Productivity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex">
+
+    <!-- Desktop Sidebar (Fixed Left) -->
+    <aside class="desktop-sidebar d-none d-lg-flex flex-column justify-content-between p-4">
+      <div>
+        <!-- Logo Branding -->
+        <div class="d-flex align-items-center gap-3 mb-5">
+          <div class="logo-icon-box">
+            <i class="bi bi-activity"></i>
+          </div>
+          <div>
+            <h1 class="logo-title mb-0">FocusFlow</h1>
+            <span class="logo-subtitle">Personal Energy Lab</span>
+          </div>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <nav>
+          <ul class="nav flex-column gap-2 sidebar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dashboard" id="nav-dashboard">
+                <i class="bi bi-grid-1x2-fill me-3"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tasks-section" id="nav-tasks">
+                <i class="bi bi-check2-square me-3"></i> My Tasks
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#timer-section" id="nav-timer">
+                <i class="bi bi-stopwatch me-3"></i> Focus Timer
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#activity-section" id="nav-activity">
+                <i class="bi bi-bar-chart-line me-3"></i> Activity
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Sidebar Status Card -->
+      <div class="sidebar-status-card p-3 rounded-4">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="pulse-indicator"></span>
+          <span class="small fw-semibold text-white">Daily Lab Mode</span>
+        </div>
+        <p class="small text-muted-cyber mb-0">
+          Sync your deep work intervals with natural alertness peaks.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content flex-grow-1 p-3 p-md-4 p-xl-5" id="dashboard">
+
+      <!-- Header Banner -->
+      <header class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+          <h2 class="h3 fw-bold text-white mb-1">Your Productivity Space</h2>
+          <p class="text-muted-cyber mb-0">
+            Welcome back, <span class="text-white fw-semibold">Alex</span>. Balance your energy, prioritize key tasks, and enter your flow state.
+          </p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="date-badge">
+            <i class="bi bi-calendar3 me-2 text-cyan"></i>
+            <span id="currentDateDisplay">Today</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- SECTION A: Today's Overview (3 Compact Statistic Cards) -->
+      <section class="mb-4">
+        <div class="row g-3">
+
+          <!-- Card 1: Tasks Completed -->
+          <div class="col-12 col-md-4">
+            <div class="dashboard-panel stat-card p-4 h-100">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="stat-label">Tasks Completed</span>
+                <div class="stat-icon-wrapper icon-purple">
+                  <i class="bi bi-check2-circle"></i>
+                </div>
+              </div>
+              <div class="d-flex align-items-baseline gap-2">
+                <h3 class="stat-value text-white mb-0" id="statCompletedDisplay">2 / 4</h3>
+                <span class="stat-subtext text-muted-cyber" id="statCompletedPercent">50% completed</span>
+              </div>
+              <div class="progress cyber-progress mt-3">
+                <div class="progress-bar cyber-progress-bar-purple" id="statProgressBar" role="progressbar" style="width: 50%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Focus Time -->
+          <div class="col-12 col-md-4">
+            <div class="dashboard-panel stat-card p-4 h-100">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="stat-label">Focus Time</span>
+                <div class="stat-icon-wrapper icon-blue">
+                  <i class="bi bi-hourglass-split"></i>
+                </div>
+              </div>
+              <div class="d-flex align-items-baseline gap-2">
+                <h3 class="stat-value text-white mb-0" id="statFocusTimeDisplay">50 mins</h3>
+                <span class="stat-subtext text-cyan">Target: 120m</span>
+              </div>
+              <div class="progress cyber-progress mt-3">
+                <div class="progress-bar cyber-progress-bar-blue" role="progressbar" style="width: 42%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Current Streak -->
+          <div class="col-12 col-md-4">
+            <div class="dashboard-panel stat-card p-4 h-100">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="stat-label">Current Streak</span>
+                <div class="stat-icon-wrapper icon-amber">
+                  <i class="bi bi-fire"></i>
+                </div>
+              </div>
+              <div class="d-flex align-items-baseline gap-2">
+                <h3 class="stat-value text-white mb-0">5 Days</h3>
+                <span class="stat-subtext text-warning">Personal best 🔥</span>
+              </div>
+              <div class="progress cyber-progress mt-3">
+                <div class="progress-bar cyber-progress-bar-amber" role="progressbar" style="width: 75%;"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION B: Daily Energy Check-in -->
+      <section class="mb-4">
+        <div class="dashboard-panel p-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+              <h3 class="h5 fw-bold text-white mb-1">
+                <i class="bi bi-lightning-charge-fill text-purple me-2"></i>Daily Energy Check-in
+              </h3>
+              <p class="small text-muted-cyber mb-0">
+                How is your cognitive battery feeling right now? Select an energy level to calibrate recommendations.
+              </p>
+            </div>
+            <span class="badge badge-cyber-purple font-monospace" id="energyStateBadge">Good Energy Selected</span>
+          </div>
+
+          <!-- 4 Selectable Emoji Options -->
+          <div class="row g-3 energy-options-grid mb-3" id="energyOptionsContainer">
+            <div class="col-6 col-lg-3">
+              <button class="energy-btn w-100 text-center" data-energy="low">
+                <span class="energy-emoji d-block">😴</span>
+                <span class="energy-name d-block">Low</span>
+                <span class="energy-desc d-block text-muted-cyber">Drained / Fatigued</span>
+              </button>
+            </div>
+            <div class="col-6 col-lg-3">
+              <button class="energy-btn w-100 text-center" data-energy="okay">
+                <span class="energy-emoji d-block">😐</span>
+                <span class="energy-name d-block">Okay</span>
+                <span class="energy-desc d-block text-muted-cyber">Steady / Neutral</span>
+              </button>
+            </div>
+            <div class="col-6 col-lg-3">
+              <button class="energy-btn w-100 text-center active" data-energy="good">
+                <span class="energy-emoji d-block">⚡</span>
+                <span class="energy-name d-block">Good</span>
+                <span class="energy-desc d-block text-muted-cyber">Focused / Energetic</span>
+              </button>
+            </div>
+            <div class="col-6 col-lg-3">
+              <button class="energy-btn w-100 text-center" data-energy="excellent">
+                <span class="energy-emoji d-block">🔥</span>
+                <span class="energy-name d-block">Excellent</span>
+                <span class="energy-desc d-block text-muted-cyber">Peak Hyperflow</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Encouraging Feedback Message Box -->
+          <div class="energy-message-box p-3 rounded-3 d-flex align-items-center gap-3" id="energyMessageBox">
+            <div class="energy-message-icon">
+              <i class="bi bi-chat-heart text-cyan fs-5"></i>
+            </div>
+            <div>
+              <span class="d-block text-white fw-semibold small" id="energyMessageTitle">Solid Focus Zone</span>
+              <span class="text-muted-cyber small" id="energyMessageText">
+                Great energy level! You are in an optimal state to tackle your high-priority objectives.
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MIDDLE ROW: My Tasks & Focus Timer -->
+      <div class="row g-4 mb-4">
+
+        <!-- SECTION C: My Tasks -->
+        <div class="col-12 col-xl-7" id="tasks-section">
+          <div class="dashboard-panel p-4 h-100 d-flex flex-column">
+            
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h3 class="h5 fw-bold text-white mb-1">
+                  <i class="bi bi-list-task text-cyan me-2"></i>My Tasks
+                </h3>
+                <p class="small text-muted-cyber mb-0">Prioritize and check off tasks as you progress.</p>
+              </div>
+              <span class="badge badge-cyber-blue font-monospace" id="taskHeaderCountBadge">2 Remaining</span>
+            </div>
+
+            <!-- Add Task Form -->
+            <form id="addTaskForm" class="add-task-form mb-3">
+              <div class="input-group">
+                <input type="text" class="form-control cyber-input" id="newTaskInput" placeholder="Add a new task..." maxlength="70" required>
+                <select class="form-select cyber-select" id="newTaskPriority" style="max-width: 120px;">
+                  <option value="High">High</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+                <button class="btn btn-cyber-primary" type="submit" id="btnAddTask">
+                  <i class="bi bi-plus-lg me-1"></i> Add
+                </button>
+              </div>
+            </form>
+
+            <!-- Task List Container -->
+            <div class="task-list-wrapper flex-grow-1" id="taskListContainer">
+              <!-- Dynamically populated via script.js -->
+            </div>
+
+            <!-- Empty State Display -->
+            <div class="empty-state text-center p-4 d-none" id="taskEmptyState">
+              <div class="empty-state-icon mb-2">
+                <i class="bi bi-stars text-cyan"></i>
+              </div>
+              <h4 class="h6 text-white mb-1">No tasks in your queue!</h4>
+              <p class="small text-muted-cyber mb-0">
+                You've cleared everything or haven't added tasks yet. Enjoy your break or create a new goal.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION D: Focus Timer (Circular SVG Ring) -->
+        <div class="col-12 col-xl-5" id="timer-section">
+          <div class="dashboard-panel p-4 h-100 text-center d-flex flex-column justify-content-between">
+            
+            <div>
+              <h3 class="h5 fw-bold text-white mb-1">
+                <i class="bi bi-stopwatch text-purple me-2"></i>Focus Timer
+              </h3>
+              <p class="small text-muted-cyber mb-3">
+                Classic 25-minute Pomodoro interval for uninterrupted deep work.
+              </p>
+            </div>
+
+            <!-- Circular Timer Container -->
+            <div class="timer-wrapper my-2 position-relative d-inline-block mx-auto">
+              <svg class="timer-svg" viewBox="0 0 240 240">
+                <!-- Background Ring -->
+                <circle class="timer-ring-bg" cx="120" cy="120" r="100" />
+                <!-- Active Countdown Ring -->
+                <circle class="timer-ring-progress" id="timerProgressRing" cx="120" cy="120" r="100" />
+              </svg>
+
+              <!-- Center Digits & Status -->
+              <div class="timer-inner-content">
+                <span class="timer-label text-muted-cyber" id="timerStatusLabel">POMODORO</span>
+                <div class="timer-digits text-white font-monospace" id="timerDisplay">25:00</div>
+                <span class="badge badge-cyber-purple" id="timerStatePill">Ready</span>
+              </div>
+            </div>
+
+            <!-- Timer Controls (Start, Pause, Reset) -->
+            <div class="timer-controls d-flex justify-content-center align-items-center gap-2 mt-3">
+              <button class="btn btn-cyber-primary px-4 py-2" id="btnTimerStart">
+                <i class="bi bi-play-fill me-1"></i> Start
+              </button>
+              <button class="btn btn-cyber-secondary px-4 py-2" id="btnTimerPause" disabled>
+                <i class="bi bi-pause-fill me-1"></i> Pause
+              </button>
+              <button class="btn btn-cyber-secondary px-3 py-2" id="btnTimerReset" title="Reset to 25:00">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SECTION E: Weekly Productivity (Lightweight CSS Bar Chart) -->
+      <section id="activity-section" class="mb-4">
+        <div class="dashboard-panel p-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+              <h3 class="h5 fw-bold text-white mb-1">
+                <i class="bi bi-bar-chart-line-fill text-blue me-2"></i>Weekly Productivity
+              </h3>
+              <p class="small text-muted-cyber mb-0">Daily focus minutes over the past seven days.</p>
+            </div>
+            <div class="small text-muted-cyber font-monospace">
+              Total: <span class="text-white fw-bold">7.9 hrs</span> • Peak: <span class="text-cyan fw-bold">Wed (120m)</span>
+            </div>
+          </div>
+
+          <!-- Lightweight CSS Bar Chart (Zero External Libraries) -->
+          <div class="weekly-chart-container pt-4 pb-2">
+            <div class="weekly-bars-wrapper d-flex justify-content-between align-items-end">
+              
+              <!-- Monday (45m) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill" style="height: 38%;" data-time="45m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2">Mon</span>
+              </div>
+
+              <!-- Tuesday (90m) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill" style="height: 75%;" data-time="90m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2">Tue</span>
+              </div>
+
+              <!-- Wednesday (120m - Peak) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill peak-bar" style="height: 100%;" data-time="120m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2 text-cyan fw-semibold">Wed</span>
+              </div>
+
+              <!-- Thursday (60m) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill" style="height: 50%;" data-time="60m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2">Thu</span>
+              </div>
+
+              <!-- Friday (80m) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill" style="height: 67%;" data-time="80m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2">Fri</span>
+              </div>
+
+              <!-- Saturday (30m) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill" style="height: 25%;" data-time="30m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2">Sat</span>
+              </div>
+
+              <!-- Sunday (50m - Today) -->
+              <div class="chart-col text-center">
+                <div class="chart-bar-slot">
+                  <div class="chart-bar-fill current-day-bar" style="height: 42%;" data-time="50m"></div>
+                </div>
+                <span class="chart-day-label d-block mt-2 text-white fw-bold">Sun</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Chart Legend -->
+          <div class="d-flex justify-content-center align-items-center gap-4 mt-3 small text-muted-cyber">
+            <div class="d-flex align-items-center gap-2">
+              <span class="legend-color-box bg-purple"></span> Standard Focus Day
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="legend-color-box bg-cyan"></span> Peak Record (120m)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Minimal Dashboard Footer -->
+      <footer class="text-center py-4 text-muted-cyber small border-top-subtle">
+        <p class="mb-0">
+          FocusFlow — Personal Energy & Productivity Lab • Built with HTML5, CSS3, Vanilla JS & Bootstrap 5
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+    <div id="feedbackToast" class="toast cyber-toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex align-items-center p-3">
+        <div class="toast-icon-box me-3" id="toastIconBox">
+          <i class="bi bi-check2-circle text-success fs-5"></i>
+        </div>
+        <div class="toast-body p-0 text-white" id="toastMessage">
+          Task completed successfully!
+        </div>
+        <button type="button" class="btn-close btn-close-white ms-auto me-1" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5.3 Bundle JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
